@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"nightveil-demon/api"
+	"nightveil-demon/middleware"
 	"os"
 	"os/exec"
 	"time"
@@ -11,6 +13,7 @@ import (
 const (
 	appName = "NightVeil Demon"
 	version = "v0.1.0"
+	port    = 5226
 )
 
 var server *http.Server
@@ -274,17 +277,22 @@ func main() {
 		quitHandler,
 	)
 
+	mux.HandleFunc(
+		"/ws",
+		wsHandler,
+	)
+
+	api.RegisterAPIRoutes(mux)
+
 	server = &http.Server{
 
-		Addr: ":5225",
-
-		Handler: mux,
+		Addr:    fmt.Sprintf(":%d", port),
+		Handler: middleware.CorsMiddleware(mux),
 	}
 
-	fmt.Printf(
-		"%s running on :5225\n",
-		appName,
-	)
+	fmt.Printf("%s running on :%d\n", appName, port)
+
+	StartMonitor()
 
 	err := server.ListenAndServe()
 
