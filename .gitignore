@@ -1,0 +1,6 @@
+.vscode
+release
+dmg
+NightVeilDemo.app
+bin/ffmpeg.exe
+bin/ffmpeg
