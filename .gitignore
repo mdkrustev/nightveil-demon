@@ -4,3 +4,4 @@ dmg
 NightVeilDemo.app
 bin/ffmpeg.exe
 bin/ffmpeg
+.DS_Store

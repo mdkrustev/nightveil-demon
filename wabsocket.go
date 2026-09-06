@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 	"sync"
-
 	"github.com/gorilla/websocket"
 )
 
